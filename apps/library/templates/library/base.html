@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Mimir Library</title>
+    <link rel="stylesheet" href="{% static 'library/style.css' %}">
+</head>
+<body>
+    
+    <header class="navbar">
+        <div class="container">
+            <a href="{% url 'book_list' %}" class="logo">📚 Mimir</a>
+            <nav>
+                <a href="{% url 'book_list' %}">Список книг</a>
+        
+            {% if user.is_authenticated %}
+                <!-- Если вошел -->
+                <a href="{% url 'book_create' %}" class="btn">Добавить книгу</a>
+                <span style="margin-left: 20px; color: #ccc;">Привет, {{ user.username }}!</span>
+                <!-- Кнопка выхода. В Django 5.0+ выход делается через форму (POST) для безопасности,
+                    но пока используем старый простой способ через ссылку, если у тебя старая версия,
+                    или сделаем форму: -->
+                <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" style="background: none; border: none; color: #e74c3c; cursor: pointer; text-decoration: underline; margin-left: 10px;">Выйти</button>
+                </form>
+            {% else %}
+                <!-- Если гость -->
+                <a href="{% url 'login' %}" style="margin-left: 20px;">Войти</a>
+                <a href="{% url 'register' %}" class="btn" style="margin-left: 10px; background-color: #e67e22;">Регистрация</a>
+            {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        {% block content%}
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Mimir Project. Python & Django</p>
+        </div>
+    </footer>
+
+</body>
+</html>

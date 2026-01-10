@@ -1,0 +1,16 @@
+{% extends 'library/base.html' %}
+
+{% block content %}
+    <div class="book-card">
+        <h1>
+            {% if form.instance.pk %}Редактировать книгу{% else %}Новая книга{% endif %}
+        </h1>
+        
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Сохранить</button>
+            <a href="{% url 'book_list' %}" style="margin-left: 20px;">Отмена</a>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'library/base.html' %}
+
+{% block content %}
+<div class="book-card" style="max-width: 400px; margin: 0 auto;">
+    <h1>Регистрация</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Выводим форму. as_p выведет поля логина и паролей -->
+        {{ form.as_p }}
+        
+        <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Зарегистрироваться</button>
+    </form>
+    
+    <p style="text-align: center; margin-top: 15px;">
+        Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>
+    </p>
+</div>
+{% endblock %}

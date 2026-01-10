@@ -1,0 +1,15 @@
+{% extends 'library/base.html' %}
+
+{% block content %}
+    <div class="book-card" style="border-color: #e74c3c;">
+        <h1 style="color: #c0392b;">Вы уверены?</h1>
+        <p>Вы собираетесь удалить книгу <strong>"{{ book.title }}"</strong>.</p>
+        <p>Это действие нельзя отменить.</p>
+        
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" style="background-color: #c0392b;">Да, удалить</button>
+            <a href="{% url 'book_detail' book.pk %}" style="margin-left: 20px;">Отмена</a>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'library/base.html' %}
+
+{% block content %}
+    <div class="book-card">
+        {% if book.cover %}
+            <img src="{{ book.cover.url }}" style="max-width: 300px; float: left; margin-right: 20px; border-radius: 8px;">
+        {% endif %}
+
+        <h1>{{ book.title }}</h1>
+        <p style="color: #777;">Автор: {{ book.author }}, {{ book.year }} год</p>
+        <div style="clear: both;"></div>
+        <hr>
+        
+        <div style="margin: 20px 0; font-size: 1.1em;">
+            {{ book.content|linebreaksbr }}
+        </div>
+
+        <hr>
+        {% if book.owner == user %}
+        <div style="margin-top: 20px;">
+            <a href="{% url 'book_edit' book.pk %}" style="margin-right: 15px;">✏️ Редактировать</a>
+            <a href="{% url 'book_delete' book.pk %}" style="color: #e74c3c;">🗑 Удалить</a>
+        </div>
+        {% endif %}
+        <p style="font-size: 0.9em; color: #888; margin-top: 30px;">
+            Добавил: {{ book.owner.username }}
+        </p>
+    </div>
+{% endblock %}
