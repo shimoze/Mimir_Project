@@ -1,7 +1,7 @@
 # 📚 Mimir Library
 
 ![Python](https://img.shields.io/badge/Python-3.10-blue)
-![Django](https://img.shields.io/badge/Django-5.0-green)
+![Django](https://img.shields.io/badge/Django-5.2.9-green)
 ![DRF](https://img.shields.io/badge/DRF-3.14-red)
 ![License](https://img.shields.io/badge/License-MIT-grey)
 
@@ -30,13 +30,34 @@
 
 ## 🛠 Tech Stack
 
-*   **Backend:** Python 3, Django 5
-*   **API:** Django REST Framework
-*   **Database:** SQLite (Development/Prototyping)
-*   **Frontend:** Django Templates (DTL), HTML5, CSS3
-*   **Deployment:** PythonAnywhere
+*   **Core:** Python 3.10, Django 5.0
+*   **API:** Django REST Framework (DRF)
+*   **Database:** PostgreSQL 15
+*   **Async & Tasks:** Celery + Redis
+*   **Infrastructure:** Docker, Docker Compose
+*   **Testing:** Django `TestCase` (Unit Tests)
+*   **Frontend:** Django Templates, CSS3
 
 ---
+
+## 🏗 Architecture
+
+The project is fully containerized. It runs 4 services working together:
+1.  **Web:** Django application (Gunicorn/Dev server).
+2.  **DB:** PostgreSQL database.
+3.  **Redis:** Message broker for async tasks.
+4.  **Worker:** Celery worker for background processing (emails, etc).
+
+---
+
+## 🔜 Future Improvements (Roadmap)
+
+*   [x] Containerization with Docker.
+*   [x] Switch database to PostgreSQL.
+*   [x] Async tasks with Celery.
+*   [x] Unit Tests coverage.
+*   [ ] CI/CD Pipeline (GitHub Actions).
+*   [ ] Deploy to VPS (DigitalOcean/AWS) using Docker.
 
 ## 📸 Screenshots
 

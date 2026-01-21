@@ -13,6 +13,8 @@ from rest_framework import viewsets, permissions
 from .serializers import GenreSerializer, BookSerializer
 from .permissions import IsOwnerOrReadOnly
 
+from .tasks import send_welcome_email
+
 # Create your views here.
 def book_list(request):
     search_query = request.GET.get('q', '').strip()
@@ -108,6 +110,9 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+
+            send_welcome_email.delay(user.username)
+
             return redirect('book_list')
     else:
         form = UserCreationForm()

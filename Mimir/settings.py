@@ -78,8 +78,12 @@ WSGI_APPLICATION = 'Mimir.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
 
@@ -138,3 +142,9 @@ LOGOUT_REDIRECT_URL = 'book_list'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+

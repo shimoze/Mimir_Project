@@ -1,0 +1,45 @@
+
+services:
+  web:
+    build: .
+    container_name: mimir_web
+    command: ["./wait-for-it.sh", "db:5432", "--", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+    ports:
+      - "8000:8000"
+    
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:15-alpine
+    container_name: mimir_db
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    
+    env_file:
+      - .env
+
+  redis:
+    image: redis:7-alpine
+    container_name: mimir_redis
+
+  celery:
+    build: .
+    container_name: mimir_celery
+    command: celery -A Mimir worker --loglevel=info
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - db
+
+volumes:
+  postgres_data:
