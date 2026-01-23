@@ -47,4 +47,3 @@ class BookViewTest(TestCase):
         response = self.client.get(reverse('book_create'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'csrfmiddlewaretoken')
-

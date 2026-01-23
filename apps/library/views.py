@@ -48,12 +48,17 @@ def book_list(request):
     # Безопасно переводим в int для шаблона
     current_genre_id = int(genre_id) if genre_id and genre_id.isdigit() else None
 
-    return render(request, 'library/book_list.html', {
+    context = {
         'books': books,
         'search_query': search_query,
         'genres': genres,
-        'current_genre_id': current_genre_id,
-    })
+        'current_genre_id': int(genre_id) if genre_id and genre_id.isdigit() else None
+    }
+
+    if request.headers.get('HX-Request'):
+        return render(request, 'library/partials/book_list_partial.html', context)
+
+    return render(request, 'library/book_list.html', context)
 
 def book_detail(request, pk):
     book = get_object_or_404(Book, pk=pk)
